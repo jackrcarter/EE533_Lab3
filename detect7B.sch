@@ -1,6 +1,6 @@
 VERSION 6
 BEGIN SCHEMATIC
-    BEGIN ATTR DeviceFamilyName "spartan3a"
+    BEGIN ATTR DeviceFamilyName "virtex2p"
         DELETE all:0
         EDITNAME all:0
         EDITTRAIT all:0
@@ -18,14 +18,10 @@ BEGIN SCHEMATIC
         SIGNAL hwregA(55:0)
         SIGNAL hwregA(62:56)
         SIGNAL XLXN_28
-        SIGNAL XLXN_29
         SIGNAL match_en
         SIGNAL mrst
-        SIGNAL XLXN_34
-        SIGNAL XLXN_37
         SIGNAL XLXN_38
         SIGNAL XLXN_39
-        SIGNAL XLXN_40
         PORT Output match
         PORT Input hwregA(63:0)
         PORT Input pipe1(71:0)
@@ -54,16 +50,6 @@ BEGIN SCHEMATIC
             LINE N 320 -160 384 -160 
             LINE N 64 -160 0 -160 
             RECTANGLE N 0 -172 64 -148 
-        END BLOCKDEF
-        BEGIN BLOCKDEF busmerge
-            TIMESTAMP 2025 1 30 6 45 52
-            RECTANGLE N 64 -128 320 0 
-            LINE N 64 -96 0 -96 
-            RECTANGLE N 0 -108 64 -84 
-            LINE N 64 -32 0 -32 
-            RECTANGLE N 0 -44 64 -20 
-            LINE N 320 -96 384 -96 
-            RECTANGLE N 320 -108 384 -84 
         END BLOCKDEF
         BEGIN BLOCKDEF fd
             TIMESTAMP 2000 1 1 10 10 10
@@ -99,16 +85,21 @@ BEGIN SCHEMATIC
             LINE N 144 -80 64 -80 
             LINE N 64 -176 144 -176 
         END BLOCKDEF
+        BEGIN BLOCKDEF busmerge
+            TIMESTAMP 2025 1 31 6 12 28
+            RECTANGLE N 64 -128 320 0 
+            RECTANGLE N 0 -108 64 -84 
+            LINE N 64 -96 0 -96 
+            RECTANGLE N 0 -44 64 -20 
+            LINE N 64 -32 0 -32 
+            RECTANGLE N 320 -108 384 -84 
+            LINE N 320 -96 384 -96 
+        END BLOCKDEF
         BEGIN BLOCK XLXI_2 wordmatch
             PIN datacomp(55:0) hwregA(55:0)
             PIN datain(111:0) XLXN_25(111:0)
             PIN match XLXN_28
             PIN wildcard(6:0) hwregA(62:56)
-        END BLOCK
-        BEGIN BLOCK XLXI_3 busmerge
-            PIN da(47:0) pipe0(47:0)
-            PIN db(63:0) pipe1(63:0)
-            PIN q(111:0) XLXN_25(111:0)
         END BLOCK
         BEGIN BLOCK XLXI_4 fd
             PIN C clk
@@ -134,6 +125,11 @@ BEGIN SCHEMATIC
             PIN clr XLXN_38
             PIN d(71:0) pipe1(71:0)
             PIN q(71:0) pipe0(71:0)
+        END BLOCK
+        BEGIN BLOCK XLXI_8 busmerge
+            PIN da(47:0) pipe0(47:0)
+            PIN db(63:0) pipe1(63:0)
+            PIN q(111:0) XLXN_25(111:0)
         END BLOCK
     END NETLIST
     BEGIN SHEET 1 2720 1760
@@ -210,8 +206,6 @@ BEGIN SCHEMATIC
                 ALIGNMENT SOFT-RIGHT
             END DISPLAY
         END BRANCH
-        BEGIN INSTANCE XLXI_3 576 928 R0
-        END INSTANCE
         INSTANCE XLXI_7 1680 896 R0
         IOMARKER 2480 768 match R0 28
         BEGIN BRANCH XLXN_28
@@ -243,5 +237,7 @@ BEGIN SCHEMATIC
             WIRE 1952 768 1952 832
             WIRE 1952 832 1968 832
         END BRANCH
+        BEGIN INSTANCE XLXI_8 576 928 R0
+        END INSTANCE
     END SHEET
 END SCHEMATIC
